@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography'
 import FolderIcon from '@material-ui/icons/Folder'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { GenericContent, SchemaStore } from '@sensenet/default-content-types'
-import { TableCell, TextField, Tooltip } from '@material-ui/core'
 
 export interface ContentListDocState extends ContentListProps<GenericContent> {
   isEditing: boolean
