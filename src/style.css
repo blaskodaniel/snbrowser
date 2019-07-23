@@ -37,3 +37,12 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.actioncontainer svg {
+  visibility: hidden;
+}
+
+.actioncontainer:hover svg {
+  visibility: visible;
+  cursor: pointer;
+}

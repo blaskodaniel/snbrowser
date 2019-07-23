@@ -14,7 +14,7 @@ export const App: React.FunctionComponent = () => {
   // const repo = useRepository()
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
       <NavBarComponent />
       <Container
@@ -39,6 +39,6 @@ export const App: React.FunctionComponent = () => {
           </Grid>
         </Grid>
       </Container>
-    </React.Fragment>
+    </>
   )
 }
