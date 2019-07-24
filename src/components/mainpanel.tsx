@@ -8,6 +8,7 @@ import { File, SchemaStore } from '@sensenet/default-content-types'
 import { ODataCollectionResponse } from '@sensenet/client-core'
 import { useRepository } from '../hooks/use-repository'
 import { icons } from '../assets/icons'
+import { downloadFile } from '../helper'
 
 export interface ContentListDocState extends ContentListProps<File> {
   isEditing: boolean
@@ -79,7 +80,7 @@ const MainPanel: React.FunctionComponent = () => {
   }, [repo, currentfolder])
 
   const handleDownload = (path: string): void => {
-    console.log('Preview: ', path)
+    downloadFile(path, repo.configuration.repositoryUrl)
   }
 
   const handleItemClickEvent = (ev: React.SyntheticEvent, content: File): void => {
