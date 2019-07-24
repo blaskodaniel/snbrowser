@@ -89,6 +89,7 @@ const MainPanel: React.FunctionComponent = () => {
     }
   }
 
+  // Handle double click event on folder
   const handleItemDoubleClickEvent = (_ev: React.SyntheticEvent, content: File): void => {
     if (content.Type === 'Folder') {
       setData([])
@@ -96,6 +97,7 @@ const MainPanel: React.FunctionComponent = () => {
     }
   }
 
+  // Handle back to root
   const handleBackEvent = (): void => {
     setData([])
     setCurrentfolder('')
