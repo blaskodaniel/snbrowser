@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import clsx from 'clsx'
+import { Button, Grid, TableCell } from '@material-ui/core'
+import { ArrowBack, CloudDownload, Edit, OpenInBrowser } from '@material-ui/icons'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { ContentList, ContentListProps } from '@sensenet/list-controls-react'
-import Grid from '@material-ui/core/Grid'
-import CloudDownload from '@material-ui/icons/CloudDownload'
-import OpenInBrowser from '@material-ui/icons/OpenInBrowser'
-import Edit from '@material-ui/icons/Edit'
 import { File, SchemaStore } from '@sensenet/default-content-types'
-import { ConstantContent, ODataCollectionResponse } from '@sensenet/client-core'
-import { TableCell } from '@material-ui/core'
+import { ODataCollectionResponse } from '@sensenet/client-core'
 import { useRepository } from '../hooks/use-repository'
 import { icons } from '../assets/icons'
 
@@ -17,14 +15,20 @@ export interface ContentListDocState extends ContentListProps<File> {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    demo: {
-      backgroundColor: theme.palette.background.paper,
-    },
     title: {
       margin: theme.spacing(4, 0, 2),
     },
     actionicon: {
       marginRight: '10px',
+    },
+    leftIcon: {
+      marginRight: theme.spacing(1),
+    },
+    iconSmall: {
+      fontSize: 20,
+    },
+    button: {
+      margin: theme.spacing(1),
     },
   }),
 )
@@ -33,11 +37,12 @@ const MainPanel: React.FunctionComponent = () => {
   const classes = useStyles()
   const repo: any = useRepository()
   const [data, setData] = useState<File[]>([])
+  const [currentfolder, setCurrentfolder] = useState<string>('')
 
   useEffect(() => {
     async function loadDocuments(): Promise<void> {
       const result: ODataCollectionResponse<File> = await repo.loadCollection({
-        path: `${ConstantContent.PORTAL_ROOT.Path}/Content/IT/Document_Library`,
+        path: `/Root/Content/IT/Document_Library/${currentfolder}`,
         oDataOptions: {
           filter: "ContentType eq 'File' or ContentType eq 'Folder'",
           select: [
@@ -59,7 +64,7 @@ const MainPanel: React.FunctionComponent = () => {
         },
       })
 
-      // Fix file unit symbol
+      // Fix file size unit symbol
       result.d.results.map(content => {
         if (content.Size !== null && content.Size !== undefined) {
           const fixedsize = content.Size / 1024 / 1024 // convert to MB
@@ -71,11 +76,40 @@ const MainPanel: React.FunctionComponent = () => {
 
     // Load documents from Repository
     loadDocuments()
-  }, [repo])
+  }, [repo, currentfolder])
+
+  const handleDownload = (path: string): void => {
+    console.log('Preview: ', path)
+  }
+
+  const handleItemClickEvent = (ev: React.SyntheticEvent, content: File): void => {
+    const target = ev.target as HTMLElement
+    if (content.Type === 'File' && target.innerHTML === (content.DisplayName || content.Name)) {
+      handleDownload(content.Path)
+    }
+  }
+
+  const handleItemDoubleClickEvent = (_ev: React.SyntheticEvent, content: File): void => {
+    if (content.Type === 'Folder') {
+      setData([])
+      setCurrentfolder(content.Name)
+    }
+  }
+
+  const handleBackEvent = (): void => {
+    setData([])
+    setCurrentfolder('')
+  }
 
   return (
     <div>
       <Grid container>
+        <Grid item xs={12} style={{ display: currentfolder === '' ? 'none' : 'inline-block' }}>
+          <Button variant="contained" size="small" className={classes.button} onClick={handleBackEvent}>
+            <ArrowBack className={clsx(classes.leftIcon, classes.iconSmall)} />
+            Back
+          </Button>
+        </Grid>
         <Grid item xs={12}>
           <ContentList<File>
             displayRowCheckbox={false}
@@ -87,19 +121,28 @@ const MainPanel: React.FunctionComponent = () => {
             fieldComponent={fieldOptions => {
               switch (fieldOptions.field) {
                 case 'Actions':
-                  return (
-                    <TableCell className="actioncontainer">
-                      <CloudDownload className={classes.actionicon} />
-                      <OpenInBrowser className={classes.actionicon} />
-                      <Edit />
-                    </TableCell>
-                  )
+                  if (fieldOptions.content.Type === 'File') {
+                    return (
+                      <TableCell className="actioncell">
+                        <CloudDownload
+                          className={classes.actionicon}
+                          onClick={() => handleDownload(fieldOptions.content.Path)}
+                        />
+                        <OpenInBrowser className={classes.actionicon} />
+                        <Edit />
+                      </TableCell>
+                    )
+                  } else {
+                    return <TableCell className="actioncell"></TableCell>
+                  }
                 // no default
               }
               return null
             }}
             fieldsToDisplay={['DisplayName', 'CreatedBy', 'ModificationDate', 'Size', 'Actions']}
             orderBy={'DisplayName'}
+            onItemClick={handleItemClickEvent}
+            onItemDoubleClick={handleItemDoubleClickEvent}
             orderDirection={'asc'}
           />
         </Grid>

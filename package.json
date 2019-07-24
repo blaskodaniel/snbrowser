@@ -1,5 +1,5 @@
 {
-  "name": "@sensenet/react-typescript-boilerplate",
+  "name": "@sensenet/react-typescript-boilerplate-documentbrowser",
   "version": "0.0.1",
   "main": "dist/index.js",
   "files": [
@@ -12,7 +12,9 @@
     "single page application",
     "boilerplate",
     "react",
-    "typescript"
+    "typescript",
+    "document",
+    "browser"
   ],
   "scripts": {
     "fix:prettier": "prettier \"{,!(dist|temp|bundle)/**/}*.{ts,tsx}\" --write",
@@ -74,7 +76,8 @@
     "@sensenet/default-content-types": "^1.2.2",
     "@sensenet/list-controls-react": "^1.3.8",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-responsive": "^7.0.0"
   },
   "husky": {
     "hooks": {

@@ -38,11 +38,17 @@ body {
   background: #555;
 }
 
-.actioncontainer svg {
+/* Handle hover on Display Name */
+td.display-name div:last-child :hover{
+  cursor: pointer;
+}
+
+/* Handle hover on Action icons */
+td.actioncell svg {
   visibility: hidden;
 }
 
-.actioncontainer:hover svg {
+tr:hover td.actioncell svg {
   visibility: visible;
   cursor: pointer;
-}
+} 
