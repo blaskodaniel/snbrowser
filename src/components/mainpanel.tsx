@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const MainPanel: React.FunctionComponent = () => {
   const classes = useStyles()
-  const repo: any = useRepository()
+  const repo = useRepository()
   const [data, setData] = useState<File[]>([])
   const [currentfolder, setCurrentfolder] = useState<string>('')
 
@@ -61,7 +61,7 @@ const MainPanel: React.FunctionComponent = () => {
             'Actions',
           ] as any,
           orderby: [['ModificationDate', 'desc']],
-          expand: ['CreatedBy', 'Actions'] as string[],
+          expand: ['CreatedBy', 'Actions'],
         },
       })
 
