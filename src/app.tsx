@@ -23,6 +23,7 @@ export const App: React.FunctionComponent = () => {
           width: '100%',
           minHeight: '80vh',
           display: 'flex',
+          marginTop: '10px',
           verticalAlign: 'middle',
           alignItems: 'center',
           justifyContent: 'flex-start',

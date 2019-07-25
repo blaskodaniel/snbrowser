@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
-import { Button, Grid, TableCell } from '@material-ui/core'
+import { Button, Grid, TableCell, Typography } from '@material-ui/core'
 import { ArrowBack, CloudDownload, Edit, OpenInBrowser } from '@material-ui/icons'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { ContentList, ContentListProps } from '@sensenet/list-controls-react'
@@ -86,7 +86,7 @@ const MainPanel: React.FunctionComponent = () => {
   const handleItemClickEvent = (ev: React.SyntheticEvent, content: File): void => {
     const target = ev.target as HTMLElement
     if (content.Type === 'File' && target.innerHTML === (content.DisplayName || content.Name)) {
-      handleDownload(content.Path)
+      // Handle preview
     }
   }
 
@@ -108,10 +108,15 @@ const MainPanel: React.FunctionComponent = () => {
     <div>
       <Grid container>
         <Grid item xs={12} style={{ display: currentfolder === '' ? 'none' : 'inline-block' }}>
-          <Button variant="contained" size="small" className={classes.button} onClick={handleBackEvent}>
-            <ArrowBack className={clsx(classes.leftIcon, classes.iconSmall)} />
-            Back
-          </Button>
+          <Grid container direction="row" justify="flex-start" alignItems="center">
+            <Button variant="contained" size="small" className={classes.button} onClick={handleBackEvent}>
+              <ArrowBack className={clsx(classes.leftIcon, classes.iconSmall)} />
+              Back
+            </Button>
+            <Typography variant="overline" display="block">
+              /{currentfolder}
+            </Typography>
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <ContentList<File>
@@ -138,9 +143,9 @@ const MainPanel: React.FunctionComponent = () => {
                   } else {
                     return <TableCell className="actioncell"></TableCell>
                   }
-                // no default
+                default:
+                  return null
               }
-              return null
             }}
             fieldsToDisplay={['DisplayName', 'CreatedBy', 'ModificationDate', 'Size', 'Actions']}
             orderBy={'DisplayName'}
