@@ -21,12 +21,11 @@ export const App: React.FunctionComponent = () => {
         maxWidth="lg"
         style={{
           width: '100%',
-          minHeight: '90vh',
-          marginTop: '10px',
+          minHeight: '80vh',
           display: 'flex',
           verticalAlign: 'middle',
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'flex-start',
           flexDirection: 'column',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',

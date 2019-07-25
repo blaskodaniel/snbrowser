@@ -1,0 +1,61 @@
+diff a/src/components/navbar.tsx b/src/components/navbar.tsx	(rejected hunks)
+@@ -7,11 +7,11 @@ const useStyles = makeStyles((theme: Theme) =>
+-    createStyles({
+-        root: {
+-            flexGrow: 1,
+-        },
+-        menuButton: {
+-            marginRight: theme.spacing(2),
+-        },
+-        title: {
+-            flexGrow: 1,
+-        },
+-    }),
++  createStyles({
++    root: {
++      flexGrow: 1,
++    },
++    menuButton: {
++      marginRight: theme.spacing(2),
++    },
++    title: {
++      flexGrow: 1,
++    },
++  }),
+@@ -20,18 +20,18 @@ export const NavBarComponent: React.FunctionComponent = () => {
+-    const repo = useRepository()
+-    const classes = useStyles()
+-    return (
+-        <div className={classes.root}>
+-            <AppBar position="relative">
+-                <Toolbar>
+-                    <Typography variant="h6" className={classes.title}>
+-                        Document Browser
+-                    </Typography>
+-                    <Tooltip title="Return to the Login screen and select another repository">
+-                        <Button color="inherit" onClick={() => repo.authentication.logout()}>
+-                            Log out
+-                        </Button>
+-                    </Tooltip>
+-                </Toolbar>
+-            </AppBar>
+-        </div>
+-    )
++  const repo = useRepository()
++  const classes = useStyles()
++  return (
++    <div className={classes.root}>
++      <AppBar position="relative">
++        <Toolbar>
++          <Typography variant="h6" className={classes.title}>
++            Document Browser
++          </Typography>
++          <Tooltip title="Return to the Login screen and select another repository">
++            <Button color="inherit" onClick={() => repo.authentication.logout()}>
++              Log out
++            </Button>
++          </Tooltip>
++        </Toolbar>
++      </AppBar>
++    </div>
++  )

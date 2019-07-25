@@ -21,7 +21,7 @@ export const NavBarComponent: React.FunctionComponent = () => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
-      <AppBar position="fixed">
+      <AppBar position="relative">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Document Browser
