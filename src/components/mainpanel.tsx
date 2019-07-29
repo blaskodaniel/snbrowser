@@ -6,6 +6,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { ContentList, ContentListProps } from '@sensenet/list-controls-react'
 import { File, SchemaStore } from '@sensenet/default-content-types'
 import { ODataCollectionResponse } from '@sensenet/client-core'
+import history from '../utils/browser-history'
 import { useRepository } from '../hooks/use-repository'
 import { icons } from '../assets/icons'
 import { downloadFile } from '../helper'
@@ -33,7 +34,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 )
-
+/**
+ * Main component
+ */
 const MainPanel: React.FunctionComponent = () => {
   const classes = useStyles()
   const repo = useRepository()
@@ -83,10 +86,12 @@ const MainPanel: React.FunctionComponent = () => {
     downloadFile(path, repo.configuration.repositoryUrl)
   }
 
-  const handleItemClickEvent = (ev: React.SyntheticEvent, content: File): void => {
+  const handleItemClickEvent = (ev: React.SyntheticEvent, content: File) => {
     const target = ev.target as HTMLElement
     if (content.Type === 'File' && target.innerHTML === (content.DisplayName || content.Name)) {
       // Handle preview
+      console.log('Preview: ', content.Id)
+      history.push(`/preview/${content.Id}`)
     }
   }
 

@@ -1,10 +1,12 @@
 import React from 'react'
 import { Container, CssBaseline, Grid } from '@material-ui/core'
+import { Route, Switch } from 'react-router-dom'
 import snLogo from './assets/sensenet_logo_transparent.png'
 // import { useCurrentUser } from './hooks/use-current-user'
 // import { useRepository } from './hooks/use-repository'
 import { NavBarComponent } from './components/navbar'
 import MainPanel from './components/mainpanel'
+import DocviewerComponent from './components/document-viewer'
 
 /**
  * The main entry point of your app. You can start h@cking from here ;)
@@ -35,7 +37,10 @@ export const App: React.FunctionComponent = () => {
         }}>
         <Grid container>
           <Grid item xs={12}>
-            <MainPanel />
+            <Switch>
+              <Route path="/" exact component={MainPanel} />
+              <Route path="/preview/:documentId" component={DocviewerComponent} />
+            </Switch>
           </Grid>
         </Grid>
       </Container>
