@@ -20,7 +20,7 @@ const DocViewer: React.FunctionComponent<RouteComponentProps<{ documentId: strin
   const hostName = repo.configuration.repositoryUrl
 
   return (
-    <div style={{ overflow: 'hidden', width: '100%', height: '100%', position: 'inherit' }}>
+    <div style={{ overflow: 'hidden', width: '100%', height: '100%', position: 'fixed' }}>
       <CurrentContentProvider idOrPath={documentId} onContentLoaded={c => selectionService.activeContent.setValue(c)}>
         <DocumentViewer documentIdOrPath={documentId} hostName={hostName} />
       </CurrentContentProvider>

@@ -112,6 +112,7 @@ export const getViewerSettings = (repo: Repository) =>
     canHideWatermark: async settings =>
       await repo.security.hasPermission(settings.idOrPath, ['PreviewWithoutWatermark']),
     getExistingPreviewImages: async (settings, version) => {
+      console.log('getExistingPreviewImages', settings)
       if (settings.pageCount < -1) {
         throw Error('Preview generation error')
       }

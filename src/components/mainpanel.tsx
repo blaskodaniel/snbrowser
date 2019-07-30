@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
-import { Button, Grid, TableCell, Typography } from '@material-ui/core'
+import Moment from 'react-moment'
+import { Button, Grid, TableCell, Tooltip, Typography } from '@material-ui/core'
 import { ArrowBack, CloudDownload, Edit, OpenInBrowser } from '@material-ui/icons'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { ContentList, ContentListProps } from '@sensenet/list-controls-react'
-import { File, SchemaStore } from '@sensenet/default-content-types'
+import { File, GenericContent, SchemaStore } from '@sensenet/default-content-types'
 import { ODataCollectionResponse } from '@sensenet/client-core'
 import history from '../utils/browser-history'
 import { useRepository } from '../hooks/use-repository'
@@ -42,9 +43,13 @@ const MainPanel: React.FunctionComponent = () => {
   const repo = useRepository()
   const [data, setData] = useState<File[]>([])
   const [currentfolder, setCurrentfolder] = useState<string>('')
+  const [activeContent, setActiveContent] = useState<File>()
+  const [selected, setSelected] = useState<File[]>([])
+  const [currentOrder, setCurrentOrder] = useState<keyof File>('DisplayName')
+  const [currentDirection, setCurrentDirection] = useState<'asc' | 'desc'>('asc')
 
   useEffect(() => {
-    async function loadDocuments(): Promise<void> {
+    const loadDocuments = async (): Promise<void> => {
       const result: ODataCollectionResponse<File> = await repo.loadCollection({
         path: `/Root/Content/IT/Document_Library/${currentfolder}`,
         oDataOptions: {
@@ -54,6 +59,7 @@ const MainPanel: React.FunctionComponent = () => {
             'Description',
             'CreationDate',
             'CreatedBy',
+            'ModifiedBy',
             'ModificationDate',
             'Icon',
             'Type',
@@ -63,17 +69,9 @@ const MainPanel: React.FunctionComponent = () => {
             'Size',
             'Actions',
           ] as any,
-          orderby: [['ModificationDate', 'desc']],
-          expand: ['CreatedBy', 'Actions'],
+          orderby: [['DisplayName', 'asc']],
+          expand: ['CreatedBy', 'Actions', 'ModifiedBy'],
         },
-      })
-
-      // Fix file size unit symbol
-      result.d.results.map(content => {
-        if (content.Size !== null && content.Size !== undefined) {
-          const fixedsize = content.Size / 1024 / 1024 // convert to MB
-          content.Size = parseFloat(fixedsize.toFixed(2))
-        }
       })
       setData(result.d.results)
     }
@@ -86,12 +84,15 @@ const MainPanel: React.FunctionComponent = () => {
     downloadFile(path, repo.configuration.repositoryUrl)
   }
 
+  const getPreview = (id: number) => {
+    history.push(`/preview/${id}`)
+  }
+
   const handleItemClickEvent = (ev: React.SyntheticEvent, content: File) => {
     const target = ev.target as HTMLElement
     if (content.Type === 'File' && target.innerHTML === (content.DisplayName || content.Name)) {
       // Handle preview
-      console.log('Preview: ', content.Id)
-      history.push(`/preview/${content.Id}`)
+      getPreview(content.Id)
     }
   }
 
@@ -107,6 +108,34 @@ const MainPanel: React.FunctionComponent = () => {
   const handleBackEvent = (): void => {
     setData([])
     setCurrentfolder('')
+  }
+
+  const editMode = (id: number) => {
+    history.push(`/edit/${id}`)
+  }
+
+  const handleOrderChange = (field: keyof File, direction: 'asc' | 'desc') => {
+    if (field === 'Actions') {
+      return null
+    }
+    const orderedItems = (data as File[]).sort((a, b) => {
+      const textA = (a[field] || '').toString().toUpperCase()
+      const textB = (b[field] || '').toString().toUpperCase()
+      return direction === 'asc'
+        ? textA < textB
+          ? -1
+          : textA > textB
+          ? 1
+          : 0
+        : textA > textB
+        ? -1
+        : textA < textB
+        ? 1
+        : 0
+    })
+    setData(orderedItems)
+    setCurrentOrder(field)
+    setCurrentDirection(direction)
   }
 
   return (
@@ -127,7 +156,13 @@ const MainPanel: React.FunctionComponent = () => {
           <ContentList<File>
             displayRowCheckbox={false}
             schema={SchemaStore.find(s => s.ContentTypeName === 'File') as any}
-            selected={[]}
+            selected={selected}
+            onRequestSelectionChange={setSelected}
+            onRequestActiveItemChange={setActiveContent}
+            active={activeContent}
+            orderBy={currentOrder}
+            onRequestOrderChange={handleOrderChange}
+            orderDirection={currentDirection}
             items={data}
             icons={icons}
             checkboxProps={{ color: 'primary' }}
@@ -137,26 +172,71 @@ const MainPanel: React.FunctionComponent = () => {
                   if (fieldOptions.content.Type === 'File') {
                     return (
                       <TableCell className="actioncell">
-                        <CloudDownload
-                          className={classes.actionicon}
-                          onClick={() => handleDownload(fieldOptions.content.Path)}
-                        />
-                        <OpenInBrowser className={classes.actionicon} />
-                        <Edit />
+                        <Tooltip title="Download">
+                          <CloudDownload
+                            className={classes.actionicon}
+                            onClick={() => handleDownload(fieldOptions.content.Path)}
+                          />
+                        </Tooltip>
+                        <Tooltip title="Preview">
+                          <OpenInBrowser
+                            className={classes.actionicon}
+                            onClick={() => getPreview(fieldOptions.content.Id)}
+                          />
+                        </Tooltip>
+                        <Tooltip title="Online edit">
+                          <Edit onClick={() => editMode(fieldOptions.content.Id)} />
+                        </Tooltip>
                       </TableCell>
                     )
                   } else {
                     return <TableCell className="actioncell"></TableCell>
                   }
+                case 'Size':
+                  if (fieldOptions.content.Type === 'File') {
+                    if (fieldOptions.content.Size !== null && fieldOptions.content.Size !== undefined) {
+                      let converted = fieldOptions.content.Size / 1024
+                      let symbol = ' KB'
+                      if (converted > 1000) {
+                        converted = converted / 1024
+                        symbol = ' MB'
+                        if (converted > 1000) {
+                          converted = converted / 1024
+                          symbol = ' GB'
+                        }
+                      }
+                      return <TableCell>{parseFloat(converted.toFixed(2)) + symbol}</TableCell>
+                    } else {
+                      return null
+                    }
+                  } else {
+                    return null
+                  }
+                case 'ModificationDate':
+                  if (fieldOptions.content.Type === 'File') {
+                    return (
+                      <TableCell>
+                        <Tooltip
+                          title={
+                            fieldOptions.content.ModifiedBy
+                              ? (fieldOptions.content.ModifiedBy as GenericContent).DisplayName
+                              : ''
+                          }>
+                          <Moment fromNow={true}>{fieldOptions.content.ModificationDate as string}</Moment>
+                        </Tooltip>
+                      </TableCell>
+                    )
+                  } else {
+                    return null
+                  }
+
                 default:
                   return null
               }
             }}
             fieldsToDisplay={['DisplayName', 'CreatedBy', 'ModificationDate', 'Size', 'Actions']}
-            orderBy={'DisplayName'}
             onItemClick={handleItemClickEvent}
             onItemDoubleClick={handleItemDoubleClickEvent}
-            orderDirection={'asc'}
           />
         </Grid>
       </Grid>

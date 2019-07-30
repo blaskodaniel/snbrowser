@@ -1,6 +1,5 @@
-import { Injectable, Injector } from '@furystack/inject'
+import { Injectable } from '@furystack/inject'
 import { IDisposable } from 'monaco-editor'
-import { ScopedLogger } from '@furystack/logging'
 
 interface RequestCounterRecord {
   all: number
@@ -17,7 +16,6 @@ interface RequestCounterRecord {
 
 @Injectable({ lifetime: 'singleton' })
 export class RequestCounterService implements IDisposable {
-  private readonly logger: ScopedLogger
   private readonly writeInterval: NodeJS.Timeout
   public dispose() {
     clearInterval(this.writeInterval)
@@ -38,7 +36,7 @@ export class RequestCounterService implements IDisposable {
   public reset() {
     this.currentState = { ...this.defaultState }
     this.hasChanged = true
-    this.logger.information({ message: 'Request counter reseted.' })
+    // this.logger.information({ message: 'Request counter reseted.' })
   }
 
   private getStorageKey() {
@@ -75,7 +73,7 @@ export class RequestCounterService implements IDisposable {
       }
     } catch (e) {
       // ignore
-      this.logger.warning({ message: 'Error reading / parsing request count from local storage' })
+      // this.logger.warning({ message: 'Error reading / parsing request count from local storage' })
     }
   }
 
@@ -83,12 +81,11 @@ export class RequestCounterService implements IDisposable {
     if (this.hasChanged) {
       localStorage.setItem(this.getStorageKey(), JSON.stringify(this.currentState))
       this.hasChanged = false
-      this.logger.verbose({ message: `Request count changes persisted. Total: ${this.currentState.all}` })
+      // this.logger.verbose({ message: `Request count changes persisted. Total: ${this.currentState.all}` })
     }
   }
 
-  constructor(injector: Injector) {
-    this.logger = injector.logger.withScope(this.constructor.name)
+  constructor() {
     this.read()
     this.writeInterval = setInterval(() => {
       this.write()

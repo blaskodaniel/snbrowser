@@ -1,4 +1,4 @@
-import { Injector } from '@furystack/inject/dist/Injector'
+import { Injector } from '@furystack/inject'
 
 import React from 'react'
 import '../utils/injector-extension'
