@@ -36,7 +36,6 @@ export class RequestCounterService implements IDisposable {
   public reset() {
     this.currentState = { ...this.defaultState }
     this.hasChanged = true
-    // this.logger.information({ message: 'Request counter reseted.' })
   }
 
   private getStorageKey() {
@@ -73,7 +72,6 @@ export class RequestCounterService implements IDisposable {
       }
     } catch (e) {
       // ignore
-      // this.logger.warning({ message: 'Error reading / parsing request count from local storage' })
     }
   }
 
@@ -81,7 +79,6 @@ export class RequestCounterService implements IDisposable {
     if (this.hasChanged) {
       localStorage.setItem(this.getStorageKey(), JSON.stringify(this.currentState))
       this.hasChanged = false
-      // this.logger.verbose({ message: `Request count changes persisted. Total: ${this.currentState.all}` })
     }
   }
 

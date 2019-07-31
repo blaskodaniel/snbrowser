@@ -63,7 +63,6 @@ export const getViewerSettings = (repo: Repository) =>
           select: 'all',
         },
       })).d
-      console.log('getDocumentData', documentData)
       return {
         idOrPath: settings.idOrPath,
         hostName: repo.configuration.repositoryUrl,
@@ -93,7 +92,6 @@ export const getViewerSettings = (repo: Repository) =>
           page,
         },
       })
-      console.log('isPreviewAvailable', responseBody)
       if (responseBody.PreviewAvailable) {
         responseBody.PreviewImageUrl = `${documentData.hostName}${responseBody.PreviewAvailable}`
         responseBody.ThumbnailImageUrl = `${documentData.hostName}${responseBody.PreviewAvailable.replace(
@@ -112,7 +110,6 @@ export const getViewerSettings = (repo: Repository) =>
     canHideWatermark: async settings =>
       await repo.security.hasPermission(settings.idOrPath, ['PreviewWithoutWatermark']),
     getExistingPreviewImages: async (settings, version) => {
-      console.log('getExistingPreviewImages', settings)
       if (settings.pageCount < -1) {
         throw Error('Preview generation error')
       }
@@ -173,7 +170,6 @@ export const getViewerSettings = (repo: Repository) =>
             page,
           } as any,
         })
-        console.log('getPreviewComments', response)
         return response.map(changeCreatedByUrlToCurrent(documentData))
       },
     },

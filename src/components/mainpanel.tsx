@@ -126,9 +126,7 @@ const MainPanel: React.FunctionComponent<MainPanel> = props => {
     }
     const orderedItems = (data as File[]).sort((a, b) => {
       const textA = typeof a[field] === 'number' ? a[field] || 0 : (a[field] || '').toString().toUpperCase()
-      console.log(`textA: ${textA}`)
       const textB = typeof b[field] === 'number' ? b[field] || 0 : (b[field] || '').toString().toUpperCase()
-      console.log(`textB: ${textB}`)
       return direction === 'asc'
         ? textA < textB
           ? -1
@@ -141,7 +139,6 @@ const MainPanel: React.FunctionComponent<MainPanel> = props => {
         ? 1
         : 0
     })
-    console.log(`orderedItems: ${JSON.stringify(orderedItems)}`)
     setData(orderedItems)
     setCurrentOrder(field)
     setCurrentDirection(direction)
