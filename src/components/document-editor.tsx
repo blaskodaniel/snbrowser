@@ -25,6 +25,9 @@ interface EditorPageState {
   documentId: number
 }
 
+/**
+ * Document Editor component
+ */
 class EditorPage extends Component<
   EditorPageProps & ReturnType<typeof mapStateToProps> & typeof mapDispatchToProps,
   EditorPageState

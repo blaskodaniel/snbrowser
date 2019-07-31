@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import Moment from 'react-moment'
 import { Button, Grid, TableCell, Tooltip, Typography } from '@material-ui/core'
+import withWidth, { isWidthUp } from '@material-ui/core/withWidth'
 import { ArrowBack, CloudDownload, Edit, OpenInBrowser } from '@material-ui/icons'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { ContentList, ContentListProps } from '@sensenet/list-controls-react'
 import { File, GenericContent, SchemaStore } from '@sensenet/default-content-types'
 import { ODataCollectionResponse } from '@sensenet/client-core'
+import { Breakpoint } from '@material-ui/core/styles/createBreakpoints'
 import history from '../utils/browser-history'
 import { useRepository } from '../hooks/use-repository'
 import { icons } from '../assets/icons'
@@ -14,6 +16,10 @@ import { downloadFile } from '../helper'
 
 export interface ContentListDocState extends ContentListProps<File> {
   isEditing: boolean
+}
+
+interface MainPanel {
+  width: Breakpoint
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -38,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
 /**
  * Main component
  */
-const MainPanel: React.FunctionComponent = () => {
+const MainPanel: React.FunctionComponent<MainPanel> = props => {
   const classes = useStyles()
   const repo = useRepository()
   const [data, setData] = useState<File[]>([])
@@ -119,8 +125,10 @@ const MainPanel: React.FunctionComponent = () => {
       return null
     }
     const orderedItems = (data as File[]).sort((a, b) => {
-      const textA = (a[field] || '').toString().toUpperCase()
-      const textB = (b[field] || '').toString().toUpperCase()
+      const textA = typeof a[field] === 'number' ? a[field] || 0 : (a[field] || '').toString().toUpperCase()
+      console.log(`textA: ${textA}`)
+      const textB = typeof b[field] === 'number' ? b[field] || 0 : (b[field] || '').toString().toUpperCase()
+      console.log(`textB: ${textB}`)
       return direction === 'asc'
         ? textA < textB
           ? -1
@@ -133,6 +141,7 @@ const MainPanel: React.FunctionComponent = () => {
         ? 1
         : 0
     })
+    console.log(`orderedItems: ${JSON.stringify(orderedItems)}`)
     setData(orderedItems)
     setCurrentOrder(field)
     setCurrentDirection(direction)
@@ -234,7 +243,13 @@ const MainPanel: React.FunctionComponent = () => {
                   return null
               }
             }}
-            fieldsToDisplay={['DisplayName', 'CreatedBy', 'ModificationDate', 'Size', 'Actions']}
+            fieldsToDisplay={
+              isWidthUp('md', props.width)
+                ? ['DisplayName', 'CreatedBy', 'ModificationDate', 'Size', 'Actions'] // x > 960px
+                : isWidthUp('sm', props.width)
+                ? ['DisplayName', 'ModificationDate', 'Size', 'Actions'] // 600px < x < 960px
+                : ['DisplayName', 'Actions'] // x < 600px
+            }
             onItemClick={handleItemClickEvent}
             onItemDoubleClick={handleItemDoubleClickEvent}
           />
@@ -244,4 +259,4 @@ const MainPanel: React.FunctionComponent = () => {
   )
 }
 
-export default MainPanel
+export default withWidth()(MainPanel)

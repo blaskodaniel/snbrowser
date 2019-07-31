@@ -7,6 +7,9 @@ import { useSelectionService } from '../hooks/use-selection-service'
 import { CurrentContentProvider } from '../context/current-content-provider'
 import { getViewerSettings } from '../service/docview-setting'
 
+/**
+ * Document viewer component
+ */
 const DocViewer: React.FunctionComponent<RouteComponentProps<{ documentId: string }>> = props => {
   const documentId = parseInt(props.match.params.documentId, 10)
   const injector = useInjector()

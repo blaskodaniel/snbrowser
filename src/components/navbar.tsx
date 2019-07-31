@@ -16,6 +16,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 )
+/**
+ * Navbar component
+ */
 export const NavBarComponent: React.FunctionComponent = () => {
   const repo = useRepository()
   const classes = useStyles()
