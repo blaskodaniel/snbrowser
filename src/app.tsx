@@ -1,17 +1,18 @@
 import React from 'react'
 import { Container, CssBaseline, Grid } from '@material-ui/core'
+import { Route, Switch } from 'react-router-dom'
 import snLogo from './assets/sensenet_logo_transparent.png'
-// import { useCurrentUser } from './hooks/use-current-user'
-// import { useRepository } from './hooks/use-repository'
+import { useRepository } from './hooks/use-repository'
 import { NavBarComponent } from './components/navbar'
 import MainPanel from './components/mainpanel'
+import DocviewerComponent from './components/document-viewer'
+import EditorPage, { EditorPageProps } from './components/document-editor'
 
 /**
  * The main entry point of your app. You can start h@cking from here ;)
  */
 export const App: React.FunctionComponent = () => {
-  // const usr = useCurrentUser()
-  // const repo = useRepository()
+  const repo = useRepository()
 
   return (
     <>
@@ -23,6 +24,7 @@ export const App: React.FunctionComponent = () => {
           width: '100%',
           minHeight: '80vh',
           display: 'flex',
+          marginTop: '10px',
           verticalAlign: 'middle',
           alignItems: 'center',
           justifyContent: 'flex-start',
@@ -34,7 +36,14 @@ export const App: React.FunctionComponent = () => {
         }}>
         <Grid container>
           <Grid item xs={12}>
-            <MainPanel />
+            <Switch>
+              <Route path="/" exact component={MainPanel} />
+              <Route path="/preview/:documentId" component={DocviewerComponent} />
+              <Route
+                path="/edit/:documentId"
+                component={(props: EditorPageProps) => <EditorPage repository={repo} {...props} />}
+              />
+            </Switch>
           </Grid>
         </Grid>
       </Container>
