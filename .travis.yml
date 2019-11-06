@@ -7,3 +7,7 @@ cache:
     - node_modules
 script:
   - npm test
+branches:
+  only:
+    - gh-pages
+    - /.*/
