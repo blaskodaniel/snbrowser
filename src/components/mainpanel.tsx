@@ -6,11 +6,11 @@ import withWidth, { isWidthUp } from '@material-ui/core/withWidth'
 import { ArrowBack, CloudDownload, Edit, OpenInBrowser } from '@material-ui/icons'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { ContentList, ContentListProps } from '@sensenet/list-controls-react'
-import { File, GenericContent, SchemaStore } from '@sensenet/default-content-types'
+import { File, GenericContent } from '@sensenet/default-content-types'
 import { ODataCollectionResponse } from '@sensenet/client-core'
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints'
+import { useRepository } from '@sensenet/hooks-react'
 import history from '../utils/browser-history'
-import { useRepository } from '../hooks/use-repository'
 import { icons } from '../assets/icons'
 import { downloadFile } from '../helper'
 
@@ -159,14 +159,14 @@ const MainPanel: React.FunctionComponent<MainPanel> = props => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <ContentList<File>
+          <ContentList
             displayRowCheckbox={false}
-            schema={SchemaStore.find(s => s.ContentTypeName === 'File') as any}
+            schema={repo.schemas.getSchemaByName('File')}
             selected={selected}
             onRequestSelectionChange={setSelected}
             onRequestActiveItemChange={setActiveContent}
             active={activeContent}
-            orderBy={currentOrder}
+            orderBy={currentOrder ? currentOrder : ('DisplayName' as any)}
             onRequestOrderChange={handleOrderChange}
             orderDirection={currentDirection}
             items={data}
@@ -174,6 +174,10 @@ const MainPanel: React.FunctionComponent<MainPanel> = props => {
             checkboxProps={{ color: 'primary' }}
             fieldComponent={fieldOptions => {
               switch (fieldOptions.field) {
+                case 'DisplayName':
+                  return <TableCell>{fieldOptions.content.DisplayName}</TableCell>
+                case 'CreatedBy':
+                  return <TableCell></TableCell>
                 case 'Actions':
                   if (fieldOptions.content.Type === 'File') {
                     return (
@@ -198,10 +202,13 @@ const MainPanel: React.FunctionComponent<MainPanel> = props => {
                   } else {
                     return <TableCell className="actioncell"></TableCell>
                   }
-                case 'Size':
+                case 'Size' as any:
                   if (fieldOptions.content.Type === 'File') {
-                    if (fieldOptions.content.Size !== null && fieldOptions.content.Size !== undefined) {
-                      let converted = fieldOptions.content.Size / 1024
+                    if (
+                      (fieldOptions.content as any).Size !== null &&
+                      (fieldOptions.content as any).Size !== undefined
+                    ) {
+                      let converted = (fieldOptions.content as any).Size / 1024
                       let symbol = ' KB'
                       if (converted > 1000) {
                         converted = converted / 1024
@@ -216,7 +223,7 @@ const MainPanel: React.FunctionComponent<MainPanel> = props => {
                       return null
                     }
                   } else {
-                    return null
+                    return <TableCell className="actioncell"></TableCell>
                   }
                 case 'ModificationDate':
                   if (fieldOptions.content.Type === 'File') {
@@ -233,7 +240,7 @@ const MainPanel: React.FunctionComponent<MainPanel> = props => {
                       </TableCell>
                     )
                   } else {
-                    return null
+                    return <TableCell className="actioncell"></TableCell>
                   }
 
                 default:
@@ -242,9 +249,9 @@ const MainPanel: React.FunctionComponent<MainPanel> = props => {
             }}
             fieldsToDisplay={
               isWidthUp('md', props.width)
-                ? ['DisplayName', 'CreatedBy', 'ModificationDate', 'Size', 'Actions'] // x > 960px
+                ? ['DisplayName', 'CreatedBy', 'ModificationDate', 'Size' as any, 'Actions'] // x > 960px
                 : isWidthUp('sm', props.width)
-                ? ['DisplayName', 'ModificationDate', 'Size', 'Actions'] // 600px < x < 960px
+                ? ['DisplayName', 'ModificationDate', 'Size' as any, 'Actions'] // 600px < x < 960px
                 : ['DisplayName', 'Actions'] // x < 600px
             }
             onItemClick={handleItemClickEvent}
