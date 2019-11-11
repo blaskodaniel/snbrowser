@@ -67,6 +67,7 @@ export const TestContentFile = {
   DisplayName: 'LargeExcelFile.xlsx',
   Description: 'LargeExcelFile.xlsx description',
   CreationDate: '2019-10-08T01:07:09.42Z',
+  Size: 432342000000,
   ModificationDate: '2019-10-08T05:07:09.42Z',
   Type: 'File',
   CreatedBy: {

@@ -9,5 +9,4 @@ script:
   - npm test
 branches:
   only:
-    - gh-pages
     - /.*/

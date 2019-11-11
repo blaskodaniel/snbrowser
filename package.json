@@ -147,7 +147,6 @@
     ],
     "collectCoverageFrom": [
       "src/**/*.{ts,tsx}",
-      "!src/context/shared-context.tsx",
       "!src/index.tsx",
       "!src/utils.ts",
       "!src/hooks/*"
