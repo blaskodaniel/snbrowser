@@ -17,7 +17,10 @@ describe('The navbar instance', () => {
       </RepositoryContext.Provider>,
     )
 
-    wrapper.find(Button).simulate('click')
+    wrapper
+      .update()
+      .find(Button)
+      .simulate('click')
     expect(logoutfn).toBeCalled()
   })
 })

@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Document viewer instance should renders correctly 1`] = `
-<withRouter(DocViewer)
-  documentId="5908"
-/>
-`;

@@ -2006,7 +2006,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                         >
                                           <th
                                             aria-sort={null}
-                                            className="MuiTableCell-root DisplayName MuiTableCell-head"
+                                            className="MuiTableCell-root MuiTableCell-head DisplayName"
                                             scope="col"
                                           >
                                             <WithStyles(ForwardRef(Tooltip))
@@ -2223,7 +2223,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                         >
                                           <th
                                             aria-sort={null}
-                                            className="MuiTableCell-root CreatedBy MuiTableCell-head"
+                                            className="MuiTableCell-root MuiTableCell-head CreatedBy"
                                             scope="col"
                                           >
                                             <WithStyles(ForwardRef(Tooltip))
@@ -2440,7 +2440,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                         >
                                           <th
                                             aria-sort={null}
-                                            className="MuiTableCell-root ModificationDate MuiTableCell-head"
+                                            className="MuiTableCell-root MuiTableCell-head ModificationDate"
                                             scope="col"
                                           >
                                             <WithStyles(ForwardRef(Tooltip))
@@ -2657,7 +2657,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                         >
                                           <th
                                             aria-sort={null}
-                                            className="MuiTableCell-root Size MuiTableCell-alignRight MuiTableCell-head"
+                                            className="MuiTableCell-root MuiTableCell-head Size MuiTableCell-alignRight"
                                             scope="col"
                                           >
                                             <WithStyles(ForwardRef(Tooltip))
@@ -2874,7 +2874,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                         >
                                           <th
                                             aria-sort={null}
-                                            className="MuiTableCell-root Actions MuiTableCell-head"
+                                            className="MuiTableCell-root MuiTableCell-head Actions"
                                             scope="col"
                                           >
                                             <WithStyles(ForwardRef(Tooltip))
@@ -9677,7 +9677,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                           >
                                             <td
                                               aria-sort={null}
-                                              className="MuiTableCell-root actioncell MuiTableCell-body"
+                                              className="MuiTableCell-root MuiTableCell-body actioncell"
                                             >
                                               <WithStyles(ForwardRef(Tooltip))
                                                 title="Download"
@@ -13971,7 +13971,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                           >
                                             <td
                                               aria-sort={null}
-                                              className="MuiTableCell-root actioncell MuiTableCell-body"
+                                              className="MuiTableCell-root MuiTableCell-body actioncell"
                                             />
                                           </ForwardRef(TableCell)>
                                         </WithStyles(ForwardRef(TableCell))>
@@ -15277,7 +15277,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                           >
                                             <td
                                               aria-sort={null}
-                                              className="MuiTableCell-root actioncell MuiTableCell-body"
+                                              className="MuiTableCell-root MuiTableCell-body actioncell"
                                             />
                                           </ForwardRef(TableCell)>
                                         </WithStyles(ForwardRef(TableCell))>
@@ -16567,7 +16567,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                           >
                                             <td
                                               aria-sort={null}
-                                              className="MuiTableCell-root actioncell MuiTableCell-body"
+                                              className="MuiTableCell-root MuiTableCell-body actioncell"
                                             />
                                           </ForwardRef(TableCell)>
                                         </WithStyles(ForwardRef(TableCell))>
@@ -20521,7 +20521,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                           >
                                             <td
                                               aria-sort={null}
-                                              className="MuiTableCell-root actioncell MuiTableCell-body"
+                                              className="MuiTableCell-root MuiTableCell-body actioncell"
                                             />
                                           </ForwardRef(TableCell)>
                                         </WithStyles(ForwardRef(TableCell))>
@@ -21827,7 +21827,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                           >
                                             <td
                                               aria-sort={null}
-                                              className="MuiTableCell-root actioncell MuiTableCell-body"
+                                              className="MuiTableCell-root MuiTableCell-body actioncell"
                                             />
                                           </ForwardRef(TableCell)>
                                         </WithStyles(ForwardRef(TableCell))>
@@ -23117,7 +23117,7 @@ exports[`The main browser panel instance should renders correctly 1`] = `
                                           >
                                             <td
                                               aria-sort={null}
-                                              className="MuiTableCell-root actioncell MuiTableCell-body"
+                                              className="MuiTableCell-root MuiTableCell-body actioncell"
                                             />
                                           </ForwardRef(TableCell)>
                                         </WithStyles(ForwardRef(TableCell))>

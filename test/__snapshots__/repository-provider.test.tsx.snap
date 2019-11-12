@@ -178,6 +178,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                 >
                   <WithStyles(ForwardRef(FormControl))
                     className="MuiTextField-root"
+                    color="primary"
                     fullWidth={true}
                     margin="normal"
                     required={true}
@@ -193,6 +194,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                           "root": "MuiFormControl-root",
                         }
                       }
+                      color="primary"
                       fullWidth={true}
                       margin="normal"
                       required={true}
@@ -238,6 +240,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                                 classes={
                                   Object {
                                     "asterisk": "MuiFormLabel-asterisk MuiInputLabel-asterisk",
+                                    "colorSecondary": "MuiFormLabel-colorSecondary",
                                     "disabled": "Mui-disabled Mui-disabled",
                                     "error": "Mui-error Mui-error",
                                     "filled": "MuiFormLabel-filled",
@@ -274,6 +277,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                             autoComplete="on"
                             classes={
                               Object {
+                                "colorSecondary": "MuiInput-colorSecondary",
                                 "disabled": "Mui-disabled",
                                 "error": "Mui-error",
                                 "focused": "Mui-focused",
@@ -296,6 +300,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                               autoComplete="on"
                               classes={
                                 Object {
+                                  "colorSecondary": "MuiInput-colorSecondary",
                                   "disabled": "Mui-disabled",
                                   "error": "Mui-error",
                                   "focused": "Mui-focused",
@@ -323,6 +328,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                                   Object {
                                     "adornedEnd": "MuiInputBase-adornedEnd",
                                     "adornedStart": "MuiInputBase-adornedStart",
+                                    "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
                                     "disabled": "Mui-disabled Mui-disabled",
                                     "error": "Mui-error Mui-error",
                                     "focused": "Mui-focused Mui-focused",
@@ -422,6 +428,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                 >
                   <WithStyles(ForwardRef(FormControl))
                     className="MuiTextField-root"
+                    color="primary"
                     fullWidth={true}
                     margin="dense"
                     required={true}
@@ -437,6 +444,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                           "root": "MuiFormControl-root",
                         }
                       }
+                      color="primary"
                       fullWidth={true}
                       margin="dense"
                       required={true}
@@ -482,6 +490,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                                 classes={
                                   Object {
                                     "asterisk": "MuiFormLabel-asterisk MuiInputLabel-asterisk",
+                                    "colorSecondary": "MuiFormLabel-colorSecondary",
                                     "disabled": "Mui-disabled Mui-disabled",
                                     "error": "Mui-error Mui-error",
                                     "filled": "MuiFormLabel-filled",
@@ -516,6 +525,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                           <ForwardRef(Input)
                             classes={
                               Object {
+                                "colorSecondary": "MuiInput-colorSecondary",
                                 "disabled": "Mui-disabled",
                                 "error": "Mui-error",
                                 "focused": "Mui-focused",
@@ -537,6 +547,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                             <WithStyles(ForwardRef(InputBase))
                               classes={
                                 Object {
+                                  "colorSecondary": "MuiInput-colorSecondary",
                                   "disabled": "Mui-disabled",
                                   "error": "Mui-error",
                                   "focused": "Mui-focused",
@@ -562,6 +573,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                                   Object {
                                     "adornedEnd": "MuiInputBase-adornedEnd",
                                     "adornedStart": "MuiInputBase-adornedStart",
+                                    "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
                                     "disabled": "Mui-disabled Mui-disabled",
                                     "error": "Mui-error Mui-error",
                                     "focused": "Mui-focused Mui-focused",
@@ -662,6 +674,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                 >
                   <WithStyles(ForwardRef(FormControl))
                     className="MuiTextField-root"
+                    color="primary"
                     fullWidth={true}
                     margin="dense"
                     required={true}
@@ -677,6 +690,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                           "root": "MuiFormControl-root",
                         }
                       }
+                      color="primary"
                       fullWidth={true}
                       margin="dense"
                       required={true}
@@ -722,6 +736,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                                 classes={
                                   Object {
                                     "asterisk": "MuiFormLabel-asterisk MuiInputLabel-asterisk",
+                                    "colorSecondary": "MuiFormLabel-colorSecondary",
                                     "disabled": "Mui-disabled Mui-disabled",
                                     "error": "Mui-error Mui-error",
                                     "filled": "MuiFormLabel-filled",
@@ -759,6 +774,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                             autoComplete="on"
                             classes={
                               Object {
+                                "colorSecondary": "MuiInput-colorSecondary",
                                 "disabled": "Mui-disabled",
                                 "error": "Mui-error",
                                 "focused": "Mui-focused",
@@ -782,6 +798,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                               autoComplete="on"
                               classes={
                                 Object {
+                                  "colorSecondary": "MuiInput-colorSecondary",
                                   "disabled": "Mui-disabled",
                                   "error": "Mui-error",
                                   "focused": "Mui-focused",
@@ -809,6 +826,7 @@ exports[`Repository Provider Repository Provider snapshot 1`] = `
                                   Object {
                                     "adornedEnd": "MuiInputBase-adornedEnd",
                                     "adornedStart": "MuiInputBase-adornedStart",
+                                    "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
                                     "disabled": "Mui-disabled Mui-disabled",
                                     "error": "Mui-error Mui-error",
                                     "focused": "Mui-focused Mui-focused",
