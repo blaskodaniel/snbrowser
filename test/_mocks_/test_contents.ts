@@ -88,3 +88,4 @@ export const TestContentFile = {
 }
 
 export const TestContentCollection = [TestContentFile, TestContentB, TestContentA]
+export const TestContentCollectionForOrders = [TestContentB, TestContentA, TestContentFile]

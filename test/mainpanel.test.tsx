@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button'
 import TableSortLabel from '@material-ui/core/TableSortLabel'
 import { downloadFile } from '../src/helper'
 import MainPanel from '../src/components/mainpanel'
-import { TestContentCollection } from './_mocks_/test_contents'
+import { TestContentCollection, TestContentCollectionForOrders } from './_mocks_/test_contents'
 
 jest.mock('../src/helper', () => ({
   downloadFile: jest.fn(),
@@ -148,6 +148,13 @@ describe('The main browser panel instance', () => {
   })
 
   it('should order the list', async () => {
+    window.fetch = function fetchMethod() {
+      return Promise.resolve({ d: TestContentCollectionForOrders } as any)
+    }
+    repo = new Repository()
+    repo.loadCollection = function fetchMethod() {
+      return Promise.resolve({ d: { results: TestContentCollectionForOrders } } as any)
+    }
     await act(async () => {
       wrapper = mount(
         <RepositoryContext.Provider value={repo}>
@@ -155,10 +162,23 @@ describe('The main browser panel instance', () => {
         </RepositoryContext.Provider>,
       )
     })
+    const contents = wrapper
+      .update()
+      .find(ContentList)
+      .find('tr')
+
+    expect(contents.at(1).text()).toContain(TestContentCollectionForOrders[0].DisplayName)
 
     const orderbtn = wrapper.update().find(TableSortLabel)
     act(() => {
-      ;(orderbtn.first().prop('onClick') as any)()
+      ;(orderbtn.at(0).prop('onClick') as any)()
     })
+    const orderedcontents = wrapper
+      .update()
+      .find(ContentList)
+      .find('tr')
+
+    const expectedstring = TestContentCollectionForOrders[0].DisplayName
+    expect(orderedcontents.at(1).text()).not.toEqual(expectedstring)
   })
 })
