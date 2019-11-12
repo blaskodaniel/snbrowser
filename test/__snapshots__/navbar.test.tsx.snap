@@ -14,7 +14,7 @@ exports[`The navbar instance should renders correctly 1`] = `
       >
         Document Browser
       </WithStyles(ForwardRef(Typography))>
-      <WithStyles(Tooltip)
+      <WithStyles(ForwardRef(Tooltip))
         title="Return to the Login screen and select another repository"
       >
         <WithStyles(ForwardRef(Button))
@@ -23,7 +23,7 @@ exports[`The navbar instance should renders correctly 1`] = `
         >
           Log out
         </WithStyles(ForwardRef(Button))>
-      </WithStyles(Tooltip)>
+      </WithStyles(ForwardRef(Tooltip))>
     </WithStyles(ForwardRef(Toolbar))>
   </WithStyles(ForwardRef(AppBar))>
 </div>

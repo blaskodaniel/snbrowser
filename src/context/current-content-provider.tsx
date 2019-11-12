@@ -2,8 +2,8 @@ import { ConstantContent } from '@sensenet/client-core'
 import { GenericContent } from '@sensenet/default-content-types'
 import React, { useEffect, useState } from 'react'
 import Semaphore from 'semaphore-async-await'
+import { useRepository } from '@sensenet/hooks-react'
 import { useInjector } from '../hooks/use-injector'
-import { useRepository } from '../hooks/use-repository'
 
 export const CurrentContentContext = React.createContext<GenericContent>(ConstantContent.PORTAL_ROOT)
 export const CurrentContentProvider: React.FunctionComponent<{

@@ -20,7 +20,6 @@
     "noUnusedParameters": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-
     "skipLibCheck": true,
 
     "alwaysStrict": true,
